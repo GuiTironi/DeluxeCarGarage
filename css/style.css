@@ -1,7 +1,5 @@
-
-        /* Fundo gasolina */
-        body {
-            background-color: #000000;
+ body {
+            background: linear-gradient(to bottom, #ff8800, #1c1e22);
             color: white;
         }
 
@@ -14,7 +12,7 @@
             font-size: 1.6rem;
             font-weight: bold;
             letter-spacing: 2px;
-            color: #00b3ff !important;
+            color: #ff8800 !important;
         }
 
         /* Hero */
@@ -50,9 +48,11 @@
             transform: scale(1.03);
         }
 
+
+
         /* Rodapé */
         footer {
-            background-color: #0d1623;
+            background-color: #ff8800;
             padding: 25px 0;
             text-align: center;
         }
