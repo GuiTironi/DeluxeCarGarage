@@ -12,9 +12,23 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        :root {
+            --bg1: #ff8800;
+            --bg2: #1c1e22;
+            --text: white;
+            --card: #122234;
+        }
+
+        .light-mode {
+            --bg1: #ffffff;
+            --bg2: #e7e7e7;
+            --text: #111;
+            --card: #ffffff;
+        }
+
         body {
-            background: linear-gradient(to bottom, #ff8800, #1c1e22);
-            color: white;
+            background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+            color: var(--text);
             font-family: "Segoe UI", sans-serif;
         }
 
@@ -22,17 +36,25 @@
         .navbar {
             background-color: #0d1623 !important;
         }
+
         .navbar-brand {
             font-size: 1.6rem;
             font-weight: bold;
             letter-spacing: 2px;
             color: #ff8800 !important;
         }
+
         .nav-link {
             color: #ddd !important;
         }
+
         .nav-link:hover {
             color: #ff8800 !important;
+        }
+
+        /* Botão mobile */
+        .navbar-toggler-icon {
+            filter: invert(1);
         }
 
         /* Hero */
@@ -43,52 +65,42 @@
             text-align: center;
             position: relative;
         }
+
         .hero img {
             width: 100%;
             max-width: 780px;
             border-radius: 20px;
             opacity: .85;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
         }
 
-        /* Carousel Imagens */
-.img-carousel {
-    width: 60%; /* ajuste fácil */
-    max-width: 420px;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 15px;
-    transition: .3s;
-}
+        /* Ajuste global de imagens */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
-.carousel-inner {
-    overflow: visible;
-}
+        /* Carousel */
+        .carousel-img {
+            width: 100%;
+            max-width: 430px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
 
-/* Todas as imagens do carousel terão exatamente o mesmo tamanho */
-.carousel-img {
-    width: 800px;       /* ajuste fácil */
-    height: 420px;      /* ajuste fácil */
-    object-fit: cover;  /* mantém proporção sem distorcer */
-    border-radius: 15px;
-    display: block;
-    margin: 0 auto;
-}
+        .carousel-item {
+            transform: scale(0.85);
+            opacity: 0.5;
+            transition: .4s;
+        }
 
+        .carousel-item.active {
+            transform: scale(1);
+            opacity: 1;
+        }
 
-.carousel-item {
-    transform: scale(0.85);
-    opacity: 0.5;
-    transition: .4s;
-}
-
-.carousel-item.active {
-    transform: scale(1);
-    opacity: 1;
-}
-
-
-        /* Botão */
+        /* Botão WhatsApp */
         .contact-btn {
             background: linear-gradient(90deg, #ffa600, #ff5e00);
             box-shadow: 0px 0px 25px rgba(255, 136, 0, 0.63);
@@ -99,17 +111,28 @@
             border-radius: 50px;
             transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
             color: white;
-            display: inline-block;
             text-decoration: none;
-            cursor: pointer;
-            will-change: transform;
         }
+
         .contact-btn:hover {
-            /* mantém o gradiente e aplica leve escurecimento + escala */
             background: linear-gradient(90deg, #ff9c1a, #ff6a2a) !important;
             filter: brightness(0.92);
             opacity: 0.95;
             transform: scale(1.04);
+        }
+
+        /* Botão de modo claro */
+        .mode-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            background: #ff8800;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         /* Rodapé */
@@ -120,41 +143,46 @@
             font-weight: bold;
         }
 
+        /* Ajustes Mobile */
+        @media (max-width: 768px) {
+
+            .hero {
+                padding: 90px 0 60px;
+            }
+
+            h1,
+            .display-4 {
+                font-size: 1.9rem !important;
+            }
+
+            .mode-btn {
+                top: 80px;
+                right: 15px;
+                padding: 8px 14px;
+            }
+
+            .carousel-img {
+                height: 220px;
+            }
+        }
     </style>
-<style>
-:root {
-  --bg1:#ff8800;
-  --bg2:#1c1e22;
-  --text:white;
-  --card:#122234;
-}
 
-.light-mode .hero, .sobre h1 p{
-    color:#e7e7e7
-}
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle('light-mode');
+        }
+    </script>
 
-.light-mode {
-    
-  --bg1:#ffffff;
-  --bg2:#e7e7e7;
-  --text:#111;
-  --card:#ffffff;
-}
-body { background:linear-gradient(to bottom,var(--bg1),var(--bg2)); color:var(--text);} 
-.card-custom{background-color:var(--card);} 
-.mode-btn{position:fixed; top:20px; right:20px; z-index:999; padding:10px 18px; border-radius:10px; border:none; background:#ff8800; font-weight:bold; cursor:pointer;} 
-</style>
-<script>
-function toggleMode(){ document.body.classList.toggle('light-mode'); }
-</script>
 </head>
 
 <body>
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">DeluxeCarGarage</a>
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -165,18 +193,20 @@ function toggleMode(){ document.body.classList.toggle('light-mode'); }
                     <li class="nav-item"><a href="#servicos" class="nav-link">Serviços</a></li>
                     <li class="nav-item"><a href="#contato" class="nav-link">Contato</a></li>
                 </ul>
-                    <button onclick="toggleMode()" class="btn text-light ms-3 fw-bold">Cores</button>
+
+                <button onclick="toggleMode()" class="btn text-light ms-3 fw-bold">Cores</button>
             </div>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="hero position-relative" style="overflow:hidden;" id="inicio">
-        <img src="/pavanelli/fotos/pavanelli1.jpeg" alt="">
+    <section class="hero" id="inicio">
+        <img src="/pavanelli/fotos/pavanelli1.jpeg" class="img-fluid mb-4" alt="">
         <div class="container" data-aos="fade-up">
             <h1 class="display-4 fw-bold mb-4">Excelência em Funilaria e Pintura</h1>
             <p class="lead mb-5">Transformação completa, brilho absoluto e acabamento de alto padrão.</p>
-            <img src="fotos/Foto-mustang.jpeg" alt="Carro"> 
+
+            <img src="fotos/Foto-mustang.jpeg" class="img-fluid" alt="Carro">
         </div>
     </section>
 
@@ -187,10 +217,13 @@ function toggleMode(){ document.body.classList.toggle('light-mode'); }
                 <div class="col-lg-12 text-center">
                     <h1>Sobre Nós</h1>
                 </div>
+
                 <div class="col-lg-6" data-aos="fade-right">
                     <h2 class="fw-bold mb-3">Profissionalismo do Começo ao Fim</h2>
-                    <p>Atuamos com os melhores materiais e técnicas modernas para reparos precisos, pintura profissional, polimento técnico e restaurações completas.</p>
+                    <p>Atuamos com os melhores materiais e técnicas modernas para reparos precisos, pintura profissional,
+                        polimento técnico e restaurações completas.</p>
                 </div>
+
                 <div class="col-lg-6" data-aos="fade-left">
                     <img src="/pavanelli/fotos/porshe-branca.jpeg" class="img-fluid rounded-4 shadow">
                 </div>
@@ -198,55 +231,66 @@ function toggleMode(){ document.body.classList.toggle('light-mode'); }
         </div>
     </section>
 
-    <!-- SERVIÇOS CRIATIVOS -->
+    <!-- SERVIÇOS -->
     <section id="servicos" class="py-5 text-center">
-    <h2 class="fw-bold mb-4">Nossos Serviços</h2>
-    <div id="carouselServicos" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active text-center">
-                <img src="/blessborn/hero/slide 1.jpg" class="carousel-img" style=" object-fit:cover;">
-                <h4 class="mt-3">Pintura Automotiva Completa</h4>
+        <h2 class="fw-bold mb-4">Nossos Serviços</h2>
+
+        <div id="carouselServicos" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                <div class="carousel-item active text-center">
+                    <img src="/blessborn/hero/slide 1.jpg" class="carousel-img">
+                    <h4 class="mt-3">Pintura Automotiva Completa</h4>
+                </div>
+
+                <div class="carousel-item text-center">
+                    <img src="/blessborn/fotos/Foto-m2.jpg" class="carousel-img">
+                    <h4 class="mt-3">Funilaria Profissional</h4>
+                </div>
+
+                <div class="carousel-item text-center">
+                    <img src="/blessborn/hero/slide 3.jpeg" class="carousel-img">
+                    <h4 class="mt-3">Retoques e Correções</h4>
+                </div>
+
             </div>
-            <div class="carousel-item text-center">
-                <img src="/blessborn/fotos/Foto-m2.jpg" class="carousel-img" style=" object-fit:cover;">
-                <h4 class="mt-3">Funilaria Profissional</h4>
-            </div>
-            <div class="carousel-item text-center">
-                <img src="/blessborn/hero/slide 3.jpeg" class="carousel-img"" style=" object-fit:cover;">
-                <h4 class="mt-3">Retoques e Correções</h4>
-            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselServicos"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselServicos"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselServicos" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselServicos" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-</section>
+    </section>
 
     <!-- CONTATO -->
     <section id="contato" class="text-center py-5">
         <h2 class="fw-bold mb-4" data-aos="fade-up">Fale Conosco</h2>
 
-        <a href="https://wa.me/5511989332605" class="contact-btn" target="_blank" data-aos="zoom-in">
+        <a href="https://wa.me/5511946382000" class="contact-btn" target="_blank" data-aos="zoom-in">
             <i class="bi bi-whatsapp"></i> WhatsApp
         </a>
 
-        <p class="mt-3" style="font-size: 1.3rem;">📞 (11) 98786-5475</p>
+        <p class="mt-3" style="font-size: 1.3rem;">📞 (11) 94638-2000</p>
     </section>
 
     <footer>
         © 2025 Deluxe Car Garage - Funilaria & Pintura.
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
-    <script>new PureCounter();</script>
+    <script> new PureCounter(); </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1200, once: true });</script>
+    <script> AOS.init({ duration: 1200, once: true }); </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
